@@ -19,7 +19,6 @@ class ProblemMaker():
         self.gametype = inputarg["gametype"]
         self.pblmwrdlst = inputarg["pblmwrds"]#list
         self.pblmrange = inputarg["tenserange"]#list
-        #print(inputarg)
         self.gametypemaster(self)
                 
     def gametypemaster(self)-> None:
@@ -29,26 +28,25 @@ class ProblemMaker():
         self.qaset = []
         if self.gametype == 0:#日本語出題6×n問
             _pblmproplst= self.filllst({"pbtype":0},6*len(self.pblmwrdlst)*len(self.pblmrange)).copy()
-            print(f"_pblmprolst={_pblmproplst}")
+            #print(f"_pblmprolst={_pblmproplst}")
             for ii in range(len(self.pblmwrdlst)): 
                 _verb = self.modedict["pblmwrds"][ii]
                 for jj in range(6*len(self.pblmrange)):
-                    #for kk in range(6):
                     _vrblst.append(_verb)
+            _adhoc = []
             for ii in range(len(self.pblmrange)):
                 _tense = self.modedict["tenserange"][ii]
-                for jj in range(6*len(self.pblmwrdlst)):
-                    _tenselst.append(_tense)
-            print(f"_vrblst={_vrblst}")
-            print(f"_tenselst={_tenselst}")
+                for jj in range(6):
+                    _adhoc.append(_tense)#000000or111111
+            for ii in range(len(self.pblmwrdlst)):
+                for jj in range(len(_adhoc)):
+                    _tenselst.append(_adhoc[jj])
             for ii in range(6*len(self.pblmwrdlst)*len(self.pblmrange)): 
                 _pblmproplst[ii]["personint"] = 0
             for ii in range(6*len(self.pblmwrdlst)*len(self.pblmrange)): 
-                #print(ii)
                 _pblmproplst[ii]["verb"]=(_vrblst[ii])
                 _pblmproplst[ii]["tense"]=(_tenselst[ii])
                 _pblmproplst[ii]["personint"] = ii%6
-                #print(_pblmproplst)
             
         # elif self.gametype == 1:#変換する問題
         #     _pblmtypelst.copy(self.filllst(1,6))
@@ -58,8 +56,29 @@ class ProblemMaker():
         #     _tense1 =self.modedict["tense1"]
         #     _tenselst.copy(self.filllst(_tense1,6))
         
+        elif self.gametype == 2:#gametype1の逆問題
+            _pblmproplst= self.filllst({"pbtype":2},6*len(self.pblmwrdlst)*len(self.pblmrange)).copy()
+            #print(f"_pblmprolst={_pblmproplst}")
+            for ii in range(len(self.pblmwrdlst)): 
+                _verb = self.modedict["pblmwrds"][ii]
+                for jj in range(6*len(self.pblmrange)):
+                    _vrblst.append(_verb)
+            _adhoc = []
+            for ii in range(len(self.pblmrange)):
+                _tense = self.modedict["tenserange"][ii]
+                for jj in range(6):
+                    _adhoc.append(_tense)#000000or111111
+            for ii in range(len(self.pblmwrdlst)):
+                for jj in range(len(_adhoc)):
+                    _tenselst.append(_adhoc[jj])
+            for ii in range(6*len(self.pblmwrdlst)*len(self.pblmrange)): 
+                _pblmproplst[ii]["personint"] = 0
+            for ii in range(6*len(self.pblmwrdlst)*len(self.pblmrange)): 
+                _pblmproplst[ii]["verb"]=(_vrblst[ii])
+                _pblmproplst[ii]["tense"]=(_tenselst[ii])
+                _pblmproplst[ii]["personint"] = ii%6
         _sampledpblmlst = sample(_pblmproplst,len(_pblmproplst))
-        print(f"sampled{_sampledpblmlst}")
+        #print(f"sampled{_sampledpblmlst}")
         self.qaset = db.lst2qa(_sampledpblmlst)
                 
     def filllst(arg:any,quantity:int):
@@ -67,3 +86,7 @@ class ProblemMaker():
         for ii in range(quantity):
             lst.append(arg.copy())#copyしないとアドレスが全て同じになる
         return lst
+    
+    def shuffle(lst:list)->list:
+        outlst = sample(lst,len(lst))
+        return outlst

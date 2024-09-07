@@ -1,57 +1,95 @@
-import json
 class modeSetter():    
     def __init__(self) -> None:
-        with open(r"C:\mywrks\verbConjugation\src\json\dialogue.json","r",encoding="utf-8") as jfle:
-            js = json.load(jfle)
-        
-        self.gamemode = []
-        self.props = []
         self.dict = {}
-        routename = "route0"
-        pos = 0
+        #問題タイプを選択
+        print("問題タイプを選択してください。\n 日本語で出題->0, 同じ動詞の中で時制を変換する問題->1")
         while True:
-            try:
-                print(js[routename][str(pos)]["text"])
-                self.props.append(js[routename][str(pos)]["prop"])
-            except KeyError:
-                pass
-                
-            ac = int(input())
-            self.gamemode.append(ac)
-            if ac == 0:
-                try:
-                    hoge = js[routename][str(pos)]["brs"]
-                    break
-                except KeyError:
-                    pass
-                pos += 1
+            ans = int(input())
+            if any([ans == 0,ans == 1,ans == 2,ans == 3]):
+                self.dict["gametype"] = ans
+                break
             else:
-                try:
-                    hoge = js[routename][str(pos)]["brs"]
-                    break
-                except KeyError:
-                    pass
-                key = "to" + str(ac) 
-                routename = js[str(routename)][str(pos)][str(key)]
-                # print(routename)
-                pos = 0
-        print(js["end"])
-        ac = int(input())
-        self.gamemode.append(ac)
-        print(self.gamemode)
-        print(self.props)
-        self.tuplMaker()
+                print("invalid input")
+                
+        if self.dict["gametype"] == 0:
+            _tenselst = []
+            _verblst = []
+            while True:
+                print("練習したい時制を追加してください。\n 現在形->0, 点過去形->1, 線過去形->2,未来形->3")
+                print(f"現在の設定->{_tenselst}")
+                ans = int(input())
+                if any([ans == 0,ans == 1,ans == 2,ans == 3,ans == 4,ans == 5,ans == 6]):
+                    _tenselst.append(ans)
+                    print("さらに追加しますか？ y or n")
+                    ans = input()
+                    if ans == "y":
+                        pass
+                    else:
+                        self.dict["tenserange"] = _tenselst
+                        break
+                else:
+                    print("invalid input")
+                    
+            while True:
+                print("練習したい動詞を追加してください。\n estar->0, ser->1, tener'->2, ir->3")
+                print(f"現在の設定->{_verblst}")
+                ans = int(input())
+                if type(int(ans)) == int:
+                    _verblst.append(self.num2verbstr(ans))
+                    print("さらに追加しますか？ y or n")
+                    ans = input()
+                    if ans == "y":
+                        pass
+                    else:
+                        self.dict["pblmwrds"] = _verblst
+                        break
+                else:
+                    print("invalid input")
+                    
+        # else:#gametype =1
+        #     _beforevrb = 0
+        #     _aftervrb = []
+        #     while True:
+        #         pass
+        elif self.dict["gametype"] == 2:
+            _tenselst = []
+            _verblst = []
+            while True:
+                print("練習したい時制を追加してください。\n 現在形->0, 点過去形->1, 線過去形->2,未来形->3")
+                print(f"現在の設定->{_tenselst}")
+                ans = int(input())
+                if any([ans == 0,ans == 1,ans == 2,ans == 3,ans == 4,ans == 5,ans == 6]):
+                    _tenselst.append(ans)
+                    print("さらに追加しますか？ y or n")
+                    ans = input()
+                    if ans == "y":
+                        pass
+                    else:
+                        self.dict["tenserange"] = _tenselst
+                        break
+                else:
+                    print("invalid input")
+                    
+            while True:
+                print("練習したい動詞を追加してください。\n estar->0, ser->1, tener'->2, ir->3")
+                print(f"現在の設定->{_verblst}")
+                ans = int(input())
+                if type(int(ans)) == int:
+                    _verblst.append(self.num2verbstr(ans))
+                    print("さらに追加しますか？ y or n")
+                    ans = input()
+                    if ans == "y":
+                        pass
+                    else:
+                        self.dict["pblmwrds"] = _verblst
+                        break
+                else:
+                    print("invalid input")
+                
         print(self.dict)
     
     def num2verbstr(arg,num):
-        vp = ("estar","ser")
-        return [vp[num]]
-    
-    def tuplMaker(self):
-        for ii in range(len(self.props)):
-            self.dict[str(self.props[ii])] = self.gamemode[ii]
-        self.dict["pblmwrds"] = self.num2verbstr(self.gamemode[len(self.gamemode) -1])
-        self.dict["tenserange"] = [self.dict["tenserange"]]
-        print(self.dict)
+        vp = ("estar","ser","tener","ir")
+        return vp[num]
     
 #md = modeSetter()

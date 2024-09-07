@@ -2,8 +2,8 @@ import json
 class DataBase():
     personword = ["1人称","2人称","3人称"]
     sinpluword = ["単数","複数"]
-    tenseword = ["現在形","点過去形","未来形"]
-    tensetpl = ("present","preterite","future")
+    tenseword = ["現在形","点過去形","線過去形","未来形"]
+    tensetpl = ("present","preterite","imperfect","future")
     def __init__(self) -> None:
         pass
     
@@ -28,6 +28,15 @@ class DataBase():
                 sp = DataBase.sinpluword[person//3]
                 question = str(vrb+"を"+psn+sp+tense+"にしてください")
                 answer = js[DataBase.tensetpl[inputlst[ii]["tense"]]]["conjugation"][person]
+                
+            if inputlst[ii]["pbtype"] == 2:#０の逆問題
+                tense = DataBase.tenseword[inputlst[ii]["tense"]]  #時制typeの取得
+                person = inputlst[ii]["personint"]
+                js = DataBase.jsnreader(inputlst[ii]["verb"])#1つの動詞を抜き出し
+                vrbinf = js["infinitive"]
+                qst = js[DataBase.tensetpl[inputlst[ii]["tense"]]]["conjugation"][person]
+                question = str(f"{qst}の不定形は？")
+                answer = vrbinf
 
             # for ii in range(6):
             #     self.verb.append(js[self.tensetpl[tense]]["conjugation"][ii])
