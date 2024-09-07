@@ -29,7 +29,17 @@ class DataBase():
                 question = str(vrb+"を"+psn+sp+tense+"にしてください")
                 answer = js[DataBase.tensetpl[inputlst[ii]["tense"]]]["conjugation"][person]
                 
-            if inputlst[ii]["pbtype"] == 2:#０の逆問題
+            elif inputlst[ii]["pbtype"] == 1:
+                tense = DataBase.tenseword[inputlst[ii]["tense"]]  #時制typeの取得
+                person = inputlst[ii]["personint"]
+                js1 = DataBase.jsnreader(inputlst[ii]["verb"][0])#1つの動詞を抜き出し
+                js2 = DataBase.jsnreader(inputlst[ii]["verb"][1])#1つの動詞を抜き出し
+                vrbinf = js1["infinitive"]
+
+                question = str(vrbinf+"を"+js2[DataBase.tensetpl[inputlst[ii]["tense"]]]["conjugation"][person]+"と同じ形にしてください")
+                answer = js1[DataBase.tensetpl[inputlst[ii]["tense"]]]["conjugation"][person]
+                
+            elif inputlst[ii]["pbtype"] == 2:#０の逆問題
                 tense = DataBase.tenseword[inputlst[ii]["tense"]]  #時制typeの取得
                 person = inputlst[ii]["personint"]
                 js = DataBase.jsnreader(inputlst[ii]["verb"])#1つの動詞を抜き出し
