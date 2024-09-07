@@ -1,0 +1,36 @@
+{
+    "infinitive":"estar",
+    "present":{
+        "conjugation":[
+            "estoy",
+            "estás",
+            "está",
+            "estamos",
+            "estáis",
+            "están"
+    ],
+    "type":"irregular"
+    },
+    "preterite":{
+        "conjugation":[
+            "estuve",
+            "estuviste",
+            "estuvo",
+            "estuvimos",
+            "estuvisteis",
+            "estuvieron"
+        ],
+        "type":"irregular"
+    },
+    "future":{
+        "conjugation":[
+            "estaré",
+            "estarás",
+            "estará",
+            "estaremos",
+            "estaréis",
+            "estarán"
+        ],
+        "type":"regular"
+    }
+}

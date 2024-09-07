@@ -1,0 +1,36 @@
+{
+    "infinitive":"estar",
+    "present":{
+        "conjugation":[
+            "soy",
+            "eres",
+            "es",
+            "somos",
+            "sois",
+            "son"
+    ],
+    "type":"irregular"
+    },
+    "preterite":{
+        "conjugation":[
+            "fui",
+            "fuiste",
+            "fue",
+            "fuimos",
+            "fuisteis",
+            "fuieron"
+        ],
+        "type":"irregular"
+    },
+    "future":{
+        "conjugation":[
+            "seré",
+            "serás",
+            "será",
+            "seremos",
+            "seréis",
+            "serán"
+        ],
+        "type":"regular"
+    }
+}
