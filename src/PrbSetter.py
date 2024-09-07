@@ -9,8 +9,9 @@ class PrbSetter():
     def inf2IF(self,num,mode):
         psn = self.personword[num%3]
         sp = self.sinpluword[num//3]
-        tns = self.tenseword[mode["tense"]] 
-        print(f"estarを{psn}{sp}{tns}にしてください")        
+        tns = self.tenseword[mode["tense"]]
+        vrb = mode["verb"] 
+        print(f"{vrb}を{psn}{sp}{tns}にしてください")        
         
     @classmethod
     def conj2conjIF(self,pres,mode): #argは呼び出し側のselfを受ける

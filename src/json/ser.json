@@ -1,5 +1,5 @@
 {
-    "infinitive":"estar",
+    "infinitive":"ser",
     "present":{
         "conjugation":[
             "soy",
@@ -21,6 +21,16 @@
             "fuieron"
         ],
         "type":"irregular"
+    },
+    "imperfect":{
+        "conjugation":[
+            "era",
+            "eras",
+            "era",
+            "éramos",
+            "erais",
+            "eran"
+        ]
     },
     "future":{
         "conjugation":[

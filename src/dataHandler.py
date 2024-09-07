@@ -7,7 +7,7 @@ class dat():
         self.tensetpl = ("present","preterite","future")
     
     def readInterface(self,pbtyp):
-        js = dat.jsnreader()
+        js = dat.jsnreader(pbtyp["verb"])
         print(type(pbtyp))
         tense = pbtyp["tense"]  #時制typeの取得
         if pbtyp["type"] == 0: #日本語で出題
@@ -24,7 +24,11 @@ class dat():
         out = sample(self.rawdat,len(self.rawdat))
         return out
     
-    def jsnreader()->dict:
-        with open(r"C:\mywrks\verbConjugation\src\json\estar.json","r",encoding="utf-8") as jsnfl:
-            js = json.load(jsnfl)
+    def jsnreader(wrd)->dict:
+        if wrd == "estar":
+            with open(r"C:\mywrks\verbConjugation\src\estar.json","r",encoding="utf-8") as jsnfl:
+                js = json.load(jsnfl)
+        elif wrd == "ser":
+            with open(r"C:\mywrks\verbConjugation\src\ser.json","r",encoding="utf-8") as jsnfl:
+                js = json.load(jsnfl)
         return js
