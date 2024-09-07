@@ -15,5 +15,5 @@ class PrbSetter():
         
     @classmethod
     def conj2conjIF(self,pres,mode): #argは呼び出し側のselfを受ける
-        tns = self.tenseword[mode["tense"]]
+        tns = self.tenseword[mode["tense2"]]
         print(f"{pres}を{tns}にしてください")

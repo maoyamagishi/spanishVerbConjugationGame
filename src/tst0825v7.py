@@ -1,26 +1,29 @@
-from PrbSetter import PrbSetter #class名とファイル名が一致しているためこう書かないと暗黙的にファイルがimportされる
+#class名とファイル名が一致しているためこう書かないと暗黙的にファイルがimportされる
+from PrbSetter import PrbSetter 
 from dataHandler import dat
+from modesetDialogue import modeSetter
 class handler():
     def __init__(self) -> None:
         dt = dat()
         self.order = dt.datMaker()
         mdsetter = modeSetter()
-        self.gamemode = mdsetter.mode
+        self.gamemode = mdsetter.dict
         print(self.gamemode)
         dt.readInterface(self.gamemode)
         self.lst = dt.verb
+        self.pbsetter = PrbSetter
         
     def manage(self):
         while True:
             print(self.lst)
             print(self.gamemode)
-            if self.gamemode["type"] == 0:
+            if self.gamemode["gametype"] == 0:
                 for ii in range(len(self.lst)):
-                    PrbSetter.inf2IF(self.order[ii],self.gamemode)
+                    self.pbsetter.inf2IF(self.order[ii],self.gamemode)
                     handler.judge(self.lst[self.order[ii]])
-            elif self.gamemode["type"] == 1:
+            elif self.gamemode["gametype"] == 1:
                 for ii in range(len(self.lst)):
-                    PrbSetter.conj2conjIF(self.lst[self.order[ii]][0],self.gamemode)
+                    self.pbsetter.conj2conjIF(self.lst[self.order[ii]][0],self.gamemode)
                     handler.judge(self.lst[self.order[ii]][1])
             handler.finishDialogue()
             ans = input()
@@ -44,25 +47,6 @@ class handler():
     def finishDialogue():
         print("Do you want to try again?")
             
-
-class modeSetter():
-    def __init__(self) :
-        print("select verb 0.estar 1.ser")
-        __verbnum = int(input())
-        print("select problem type")
-        print("現在形->0, 現在形２過去形->1")
-        __innum = int(input())
-        self.mode = modeSetter.modeMap(__innum)
-        self.mode["verb"] = self.num2verbstr(__verbnum)
-        
-    def modeMap(input):
-        mp = ({"type":0,"tense":0},{"type":0,"tense":1},{"type":0,"tense":2},{"type":1,"tense":1},{"type":1,"tense":2})
-        return mp[input]
-    
-    def num2verbstr(arg,num):
-        vp = ("estar","ser")
-        return vp[num]
-    
 if __name__=='__main__':
     hd = handler()
     hd.manage()

@@ -9,15 +9,17 @@ class dat():
     def readInterface(self,pbtyp):
         js = dat.jsnreader(pbtyp["verb"])
         print(type(pbtyp))
-        tense = pbtyp["tense"]  #時制typeの取得
-        if pbtyp["type"] == 0: #日本語で出題
+        if pbtyp["gametype"] == 0: #日本語で出題
+            tense = pbtyp["tense"]  #時制typeの取得
             for ii in range(6):
                 self.verb.append(js[self.tensetpl[tense]]["conjugation"][ii])
-        elif pbtyp["type"] == 1:#現在形->変換問題
+        elif pbtyp["gametype"] == 1:#変換問題
+            tense1 = pbtyp["tense1"]
+            tense2 = pbtyp["tense2"]
             for ii in range(6):
                 pair = []
-                pair.append(js["present"]["conjugation"][ii])
-                pair.append(js[self.tensetpl[tense]]["conjugation"][ii])
+                pair.append(js[self.tensetpl[tense1]]["conjugation"][ii])
+                pair.append(js[self.tensetpl[tense2]]["conjugation"][ii])
                 self.verb.append(pair)
                 
     def datMaker(self)->list:
@@ -25,10 +27,11 @@ class dat():
         return out
     
     def jsnreader(wrd)->dict:
-        if wrd == "estar":
-            with open(r"C:\mywrks\verbConjugation\src\estar.json","r",encoding="utf-8") as jsnfl:
-                js = json.load(jsnfl)
-        elif wrd == "ser":
-            with open(r"C:\mywrks\verbConjugation\src\ser.json","r",encoding="utf-8") as jsnfl:
-                js = json.load(jsnfl)
-        return js
+        print(wrd)
+        with open(r"C:\mywrks\verbConjugation\src\json\path.json","r",encoding="utf-8") as jsnfl1:
+            js1 = json.load(jsnfl1)
+            pth = js1[wrd]["path"]
+        with open(pth,"r",encoding="utf-8")as jsnfl2:
+            js2 = json.load(jsnfl2)
+            
+        return js2
