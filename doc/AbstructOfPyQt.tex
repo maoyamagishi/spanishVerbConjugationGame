@@ -1,0 +1,97 @@
+\documentclass{ltjarticle}
+\usepackage{luatexja} % ltjclasses, ltjsclasses を使うときはこの行不要
+\usepackage{amsmath,amssymb}
+\usepackage{longtable}
+\usepackage{listings, xcolor}
+\title{PyQt概観}
+\author{山岸}
+
+%%%%%%%%%%%%%%  本文  %%%%%%%%%%%%%%%%%%
+\begin{document}
+\fussy
+\maketitle
+\begin{abstract}
+  PyQtを触りはじめて、FusionのAPIのように各classの従属関係が複雑で、かつ、公式のリファレンス（量が多すぎる）
+  ぐらいしか信頼できるドキュメントがないことに気が付いた。\par
+  分かったことを順次書いていってドキュメント化することが効率的なやり方だと考えたのでこの文書を作成する。
+  各クラスの親子関係、呼び出し、追加の関係をまとめていく。
+\end{abstract}
+
+
+\section{主要モジュール}
+まず、いくつかのclassの集まりであり一つ上の概念であるモジュール（module）で主要なものを列挙する。\par
+https://doc.qt.io/qt-6/qtmodules.html
+によれば主要モジュールは全部で12個あるそうだが、使いそうなのはQt Core, Qt GUI, Qt Widgetsの３つぐらいだろう。
+\subsection{Qt Core}
+QBasicTimer（読んで字のごとくタイマー機能）, 
+QEvent（キーボード入力関連）,
+QFile（ファイルの読み込み、書き込み関連）
+などが入っている（重要なものを見つけたら適宜追加する）。
+QFileとか、pythonでやるうえでは不要では？cppとかでも他に
+やり方がありそうだし、
+%https://qiita.com/shirosuke_93/items/d5d068bb15c8e8817c34 <-これコメントアウトしないとエラー吐くんだが…???
+まぁ謎。fileExistとかの関数は便利そう。
+\subsection{Qt GUI}
+Qt coreの拡張（ここでいう拡張は恐らく継承の意味かも）それなのに、
+importする時にはPyQt6.QtCoreの下からでは
+アクセスできないようになっている、不思議だなぁ。QActionEvent,QColor,QEnterEvent,QImage,QKeyEvent,QText
+,iterator(この中にParentFlame?妙だな),QFontなどが入る。
+\subsection{Qt Widgets}
+本丸である。EventとImage以外大体入ってそうだ。
+
+\section{QGridLayout}
+真の名-> PyQt6.QtWigets.QGridLayout()
+QHBoxLayoutとかQVBoxLayoutとかもあるが、幅の調整の自由度が低いので、Gridを使いたいところ。
+ウィンドウの縮小とかの処理が面倒かなという偏見がある。
+
+
+\subsection{method}
+addLayout()
+子レイアウトを埋め込む。多分QHBoxLayoutとかでも使える。\par
+addItem()
+itemって何ぞ？\par
+addWidget()
+追加するやつ。QProgressBar()とかQGraphicsView()とかQTextEdit()が追加できる。
+\begin{longtable}{c||c}
+  QProgressBar() & progress barのインスタンス（widget classに属する）\\
+  QTextEdit() & テキスト入力（これもwidget class）
+\end{longtable}
+
+
+\section{QWidget}
+QWidgetが、Qtが持つ全てのウィンドウを司るクラスの基になっているらしい。（へ～）
+自作したいウィンドウクラスを作成する場合、継承元として指定するぐらいの使い道しか
+ないと思われる。紛らわしいけど、真の名をPyQt6.QWidgets.QWidget()。type = <class 'PyQt6.sip.wrappertype'>
+\subsection{QWidgetの子孫たち}
+こやつらはほとんど同じ扱いができるのでまとめておく。ここでいう同じ扱いとは、\par
+・addWidget(instance,arg1,arg2)でGridLayoutに追加できる\\
+・hogehoge(発見したら追加)\\
+である。
+\begin{longtable}{c||c}
+  QGraphicsView() & QGraphicScene()を貼り付ける先（e.g. view.setScene(scene)）\\
+  QProgressBar() & progress barのインスタンス\\
+  QTextEdit() & 複数行入れられる入力マス\\
+  QLineEdit() & 1行のみの入力マス
+\end{longtable}
+
+
+\section{QGraphicScene}
+QGraphicTextItemとか、QGraphicSimpleTextItem()addItemメソッドを使って
+貼り付けることができる。また、QtGUI.QPixmapをaddPixmapメソッドを使って貼り付ける
+ことができる中間的なオブジェクトである。このオブジェクトをQGraphicsView()に貼り付ける
+ことでWidgetを作成でき、さらにそのウィジットをaddWidgetメソッドでレイアウトに
+貼り付けることができる。\par
+つまり、作成する順番としては（厳密には貼り付ける方向、なのかもしれないが）
+(QGraphicSimpleTextItem or QtGUI.QPixmap) -> QGraphicScene
+-> QGraphicsView -> Layout() \par
+てな感じである。
+\input{sceneSample.tex}
+\section{tips}
+\subsection{How to turn Auto Completion On}
+PyQt6をpip installしただけではVSCodeでの予測変換が効かない。これではやってられない（
+あるオブジェクトに対してどのmethodやpropatyが使えるかがわかりづらくなる）のでどうにかしよう。\\
+"python.autoComplete.extraPaths": $\lbrack$ \\
+\qquad \qquad    "C: $\backslash \backslash $ Users $\backslash \backslash$ Appdata...path2PyQt6"\\
+$\rbrack$ \\
+をsetting.jsonの直下に書き込む
+\end{document}

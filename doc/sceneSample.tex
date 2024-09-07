@@ -1,0 +1,58 @@
+\lstset{
+    basicstyle = {\ttfamily}, % 基本的なフォントスタイル
+    frame = {tbrl}, % 枠線の枠線。t: top, b: bottom, r: right, l: left
+    breaklines = true, % 長い行の改行
+    numbers = left, % 行番号の表示。left, right, none
+    showspaces = false, % スペースの表示
+    showstringspaces = false, % 文字列中のスペースの表示
+    showtabs = false, %　タブの表示
+    keywordstyle = \color{blue}, % キーワードのスタイル。intやwhileなど
+    commentstyle = {\color[HTML]{1AB91A}}, % コメントのスタイル
+    identifierstyle = \color{black}, % 識別子のスタイル　関数名や変数名
+    stringstyle = \color{brown}, % 文字列のスタイル
+    captionpos = t % キャプションの位置 t: 上、b: 下
+}
+\begin{lstlisting}[caption=sceneSample.py]
+  import sys
+  from PyQt6.QtWidgets import(QWidget, QGraphicsTextItem,QGraphicsScene,QGraphicsView,QHBoxLayout,QApplication)
+  
+  class Sample(QWidget):
+      def __init__(self) -> None:
+          super().__init__()
+          self.sampleUI()
+          
+      def sampleUI(self)->None:
+          #create instance of QGraphicTextItem
+          txtboxA = QGraphicsTextItem()
+          txtboxB = QGraphicsTextItem()
+          txtboxA.setPlainText("A")
+          txtboxB.setPlainText("B")
+          
+          #create instance of Scene
+          sceneA = QGraphicsScene()
+          sceneB = QGraphicsScene()
+          
+          #create instance of Graphic
+          viewA = QGraphicsView()
+          viewB = QGraphicsView()
+          
+          #貼る
+          sceneA.addItem(txtboxA)
+          sceneB.addItem(txtboxB)
+          viewA.setScene(sceneA)
+          viewB.setScene(sceneB)
+          
+          layout = QHBoxLayout()
+          layout.addWidget(viewA)
+          layout.addWidget(viewB)
+          
+          self.setLayout(layout)
+          self.setGeometry(300,300,350,300)
+          self.setWindowTitle('Review')
+          self.show()
+  
+  if __name__ == '__main__':
+      app = QApplication(sys.argv)
+      smpl = Sample()
+      sys.exit(app.exec())
+  \end{lstlisting}

@@ -2,7 +2,7 @@ class modeSetter():
     def __init__(self) -> None:
         self.dict = {}
         #問題タイプを選択
-        print("問題タイプを選択してください。\n 日本語で出題->0, 動詞を見て時制を変換する問題->1")
+        print("問題タイプを選択してください。\n 日本語で出題->0, 同じ動詞の中で時制を変換する問題->1")
         while True:
             ans = int(input())
             if any([ans == 0,ans == 1,ans == 2,ans == 3]):

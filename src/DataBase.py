@@ -48,15 +48,5 @@ class DataBase():
                 question = str(f"{qst}の不定形は？")
                 answer = vrbinf
 
-            # for ii in range(6):
-            #     self.verb.append(js[self.tensetpl[tense]]["conjugation"][ii])
-            # elif pbtyp["gametype"] == 1:#変換問題
-            #     tense1 = pbtyp["tense1"]
-            #     tense2 = pbtyp["tense2"]
-            #     for ii in range(6):
-            #         pair = []
-            #         pair.append(js[self.tensetpl[tense1]]["conjugation"][ii])
-            #         pair.append(js[self.tensetpl[tense2]]["conjugation"][ii])
-            #         self.verb.append(pair)
             out.append([question,answer])
         return out
