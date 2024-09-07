@@ -1,7 +1,7 @@
 import json
 class modeSetter():    
     def __init__(self) -> None:
-        with open(r"C:\mywrks\verbConjugation\src\json\oldfiles\dialogueoldver.json","r",encoding="utf-8") as jfle:
+        with open(r"C:\mywrks\verbConjugation\src\json\dialogue.json","r",encoding="utf-8") as jfle:
             js = json.load(jfle)
         
         self.gamemode = []
@@ -32,8 +32,6 @@ class modeSetter():
                 except KeyError:
                     pass
                 key = "to" + str(ac) 
-                # print(type(key))
-                # print(f"I'm @ {routename} {pos}")
                 routename = js[str(routename)][str(pos)][str(key)]
                 # print(routename)
                 pos = 0
@@ -47,11 +45,13 @@ class modeSetter():
     
     def num2verbstr(arg,num):
         vp = ("estar","ser")
-        return vp[num]
+        return [vp[num]]
     
     def tuplMaker(self):
         for ii in range(len(self.props)):
             self.dict[str(self.props[ii])] = self.gamemode[ii]
-        self.dict["verb"] = self.num2verbstr(self.gamemode[len(self.gamemode) -1])
+        self.dict["pblmwrds"] = self.num2verbstr(self.gamemode[len(self.gamemode) -1])
+        self.dict["tenserange"] = [self.dict["tenserange"]]
+        print(self.dict)
     
-# md = modeSetter()
+#md = modeSetter()

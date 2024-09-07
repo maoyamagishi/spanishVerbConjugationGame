@@ -1,39 +1,36 @@
 #class名とファイル名が一致しているためこう書かないと暗黙的にファイルがimportされる
-from PrbSetter import PrbSetter 
-from dataHandler import dat
+from problemMaker import ProblemMaker as pm
+#from dataHandler import dat
 from modesetDialogue import modeSetter
 class handler():
     def __init__(self) -> None:
-        dt = dat()
-        self.order = dt.datMaker()
+        pass
+    
+    def initialize(self) -> None:
+        #self.dt = dat()
+        #self.order = dt.datMaker()
         mdsetter = modeSetter()
         self.gamemode = mdsetter.dict
         print(self.gamemode)
-        dt.readInterface(self.gamemode)
-        self.lst = dt.verb
-        self.pbsetter = PrbSetter
+        plbmMake = pm
+        plbmMake.IF(plbmMake,self.gamemode)
+        self.qa = plbmMake.qaset
         
     def manage(self):
+        self.initialize()
         while True:
-            print(self.lst)
-            print(self.gamemode)
-            if self.gamemode["gametype"] == 0:
-                for ii in range(len(self.lst)):
-                    self.pbsetter.inf2IF(self.order[ii],self.gamemode)
-                    handler.judge(self.lst[self.order[ii]])
-            elif self.gamemode["gametype"] == 1:
-                for ii in range(len(self.lst)):
-                    self.pbsetter.conj2conjIF(self.lst[self.order[ii]][0],self.gamemode)
-                    handler.judge(self.lst[self.order[ii]][1])
+            for ii in range(len(self.qa)):
+                print(self.qa[ii][0])
+                self.judge(self.qa[ii][1])
             handler.finishDialogue()
             ans = input()
             if ans == "y":
-                handler.__init__(self)
+                pass
             elif ans == "n":
                 handler.cls()
                 break
-                    
-    def judge(ans):
+                
+    def judge(self,ans):
         wrd = input()
         if wrd == ans:
             print("correct!")
