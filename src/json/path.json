@@ -1,23 +1,38 @@
 {
     "estar":{
         "id":0,
-        "path":"C:\\mywrks\\verbConjugation\\src\\json\\estar.json",
+        "path":"C:\\wrks\\spanishVerbConjugationGame\\src\\json\\estar.json",
         "tag1":"-ar"
     },
     "ser":
     {
         "id":1,
-        "path":"C:\\mywrks\\verbConjugation\\src\\json\\ser.json",
+        "path":"C:\\wrks\\spanishVerbConjugationGame\\src\\json\\ser.json",
         "tag1":"-er"
     },
     "tener":{
         "id":2,
-        "path":"C:\\mywrks\\verbConjugation\\src\\json\\tener.json",
+        "path":"C:\\wrks\\spanishVerbConjugationGame\\src\\json\\tener.json",
         "tag1":"-er"
     },
     "ir":{
         "id":3,
-        "path":"C:\\mywrks\\verbConjugation\\src\\json\\ir.json",
+        "path":"C:\\wrks\\spanishVerbConjugationGame\\src\\json\\ir.json",
+        "tag1":"-ir"
+    },
+    "hablar":{
+        "id":4,
+        "path":"C:\\wrks\\spanishVerbConjugationGame\\src\\json\\hablar.json",
+        "tag1":"-ar"
+    },
+    "comer":{
+        "id":5,
+        "path":"C:\\wrks\\spanishVerbConjugationGame\\src\\json\\comer.json",
+        "tag1":"-er"
+    },
+    "vivir":{
+        "id":6,
+        "path":"C:\\wrks\\spanishVerbConjugationGame\\src\\json\\vivir.json",
         "tag1":"-ir"
     }
 }

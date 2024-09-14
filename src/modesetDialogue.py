@@ -31,7 +31,7 @@ class modeSetter():
                     print("invalid input")
                     
             while True:
-                print("練習したい動詞を追加してください。\n estar->0, ser->1, tener'->2, ir->3")
+                print("練習したい動詞を追加してください。\n estar->0, ser->1, tener'->2, ir->3, hablar->4, comer->5, vivir->6")
                 print(f"現在の設定->{_verblst}")
                 ans = int(input())
                 if type(int(ans)) == int:
@@ -51,7 +51,7 @@ class modeSetter():
             _aftervrb = []
             _tenselst = []
             while True:
-                print("練習したい動詞を追加してください。\n estar->0, ser->1, tener'->2, ir->3")
+                print("練習したい動詞を追加してください。\n estar->0, ser->1, tener'->2, ir->3, hablar->4, comer->5, vivir->6")
                 print(f"現在の設定->{_beforevrb}")
                 ans = int(input())
                 if type(int(ans)) == int:
@@ -67,7 +67,7 @@ class modeSetter():
                     print("invalid input")
             
             while True:
-                print("キーとして使う動詞を追加してください。\n estar->0, ser->1, tener'->2, ir->3")
+                print("キーとして使う動詞を追加してください。\n estar->0, ser->1, tener'->2, ir->3, hablar->4, comer->5, vivir->6")
                 print(f"現在の設定->{_aftervrb}")
                 ans = int(input())
                 if type(int(ans)) == int:
@@ -101,7 +101,7 @@ class modeSetter():
 
     
     def num2verbstr(arg,num):
-        vp = ("estar","ser","tener","ir")
+        vp = ("estar","ser","tener","ir","hablar","comer","vivir")
         return vp[num]
     
 #md = modeSetter()

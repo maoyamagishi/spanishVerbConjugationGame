@@ -9,7 +9,7 @@ class DataBase():
     
     def jsnreader(wrd)->dict:
         print(wrd)
-        with open(r"C:\mywrks\verbConjugation\src\json\path.json","r",encoding="utf-8") as jsnfl1:
+        with open(r"C:\wrks\spanishVerbConjugationGame\src\json\path.json","r",encoding="utf-8") as jsnfl1:
             js1 = json.load(jsnfl1)
             pth = js1[wrd]["path"]
         with open(pth,"r",encoding="utf-8")as jsnfl2:
